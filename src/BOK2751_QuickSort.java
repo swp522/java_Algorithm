@@ -13,24 +13,32 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class BOK2751_QuickSort {
-    public static void quickSort(int[] data, int start, int end){
-        if(start < end){
+    private static void quickSort(int[] data){
+        quickSort(data, 0, data.length -1);
+    }
+
+    private static void quickSort(int[] data, int start, int end){
             int newPivot = partition(data, start, end);
-            quickSort(data, start, newPivot-1);
-            quickSort(data, newPivot+1, end);
-        }
+            if (start < newPivot - 1) {
+                quickSort(data, start, newPivot - 1);
+            }
+            if (newPivot < end) {
+                quickSort(data, newPivot, end);
+            }
     }
 
     public static int partition(int[] data, int start, int end){
         int pivot = data[(start + end) / 2];
 
-        while(start < end){
+        while(start <= end){
             while(data[start] < pivot)
                 start++;
             while(data[end] > pivot)
                 end--;
-            if(start < end){
+            if(start <= end){
                 swap(data, start, end);
+                start++;
+                end--;
             }
         }
         return start;
@@ -52,7 +60,7 @@ public class BOK2751_QuickSort {
             data[i] = Integer.parseInt(br.readLine().trim());
         }
 
-        quickSort(data, 0, size-1);
+        quickSort(data);
 
         for(int i=0; i<size; i++){
             sb.append(data[i]+ "\n");

@@ -1,5 +1,6 @@
-//2020_03_24_구간합 구하기
-//세그먼트 트리 기본 문제
+// 2020_03_18_(수) 강남스터디_8회차_과제_구간합구하기
+// 세그먼트 트리
+
 
 import java.io.*;
 import java.util.StringTokenizer;
@@ -85,13 +86,13 @@ public class BOJ_2042_구간합구하기 {
 
     public static long sumSegment(int nodeStart, int nodeEnd, int nodeIndex, int queryStart, int queryEnd) {
         if (queryStart <= nodeStart && nodeEnd <= queryEnd) {
-            return segment[nodeIndex];  // 겹치는 구간 있으면 -> 해당 합 값 리턴
+            return segment[nodeIndex];  // 1. 완전히 겹치면 -> 해당 합 값 리턴
         }
         else if (queryEnd < nodeStart || queryStart > nodeEnd) {
-            return 0;   //구간 안겹치면 -> 내 노드값은 구간의 합에 관여하지 않으니까 0리턴
+            return 0;   //2. 구간 안겹치면 -> 내 노드값은 구간의 합에 관여하지 않으니까 0리턴
         }
         int nodeMid = (nodeStart + nodeEnd) / 2;
-        //쿼리가 노드구간을 포함 하거나 그 반대의 경우 -> 쿼리를 두 자식노드에 대해서 독립적으로 다시 호출하고 더해서 리턴한다
+        // 1,2 제외한 경우 - 쿼리와 노드 구간이 겹치눈 겹치는 구간 발생
         return (sumSegment(nodeStart, nodeMid, 2 * nodeIndex, queryStart, queryEnd)
                 + sumSegment(nodeMid + 1, nodeEnd, 2 * nodeIndex + 1, queryStart, queryEnd));
     }

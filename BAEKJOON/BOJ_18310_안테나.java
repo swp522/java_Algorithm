@@ -1,4 +1,5 @@
-//2020_04_03_금_과제_23회차_안테나
+// 2020_04_03_금_과제_23회차_안테나
+// 1 3 5 9 9 9 9 인 경우 테케에서 누락된 듯
 
 import java.io.BufferedReader;
 import java.io.IOException;

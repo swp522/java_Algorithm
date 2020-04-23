@@ -16,43 +16,42 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class BOJ_3425_고스택 {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
             ArrayList<String> commandList = new ArrayList<>();
+            boolean errorCheck;
             String inputCom = br.readLine();
 
-            if (inputCom.equals("QUIT")) {
+            if(inputCom.equals("")){
+                inputCom = br.readLine();
+            }
+
+            if(inputCom.equals("QUIT")){
                 break;
             }
 
+            commandList.add(inputCom);
+
             while (true) {
-                if (inputCom.equals(" ")) {
-                    continue;
-                }
                 if (inputCom.equals("END")) {
                     break;
                 }
-                commandList.add(inputCom);
                 inputCom = br.readLine();
-
-
+                commandList.add(inputCom);
             }
 
             int n = Integer.parseInt(br.readLine());
 
             for (int i = 0; i < n; i++) {
+                errorCheck = false;
                 long value = Long.parseLong(br.readLine());
                 Stack<Long> stack = new Stack<>();
                 stack.add(value);
 
-                for (int j = 0; j < commandList.size(); j++) {// !stack.isEmpty() 로 표현하면 안된다
-
-                    if (stack.size() > 1000) {
-                        System.out.println("ERROR");
-                        break;
-                    }
+                for (int j = 0; j < commandList.size(); j++) {
 
                     String command = commandList.get(j);
                     StringTokenizer st = new StringTokenizer(command, " ");
@@ -64,161 +63,166 @@ public class BOJ_3425_고스택 {
 
                             if (0 <= num && num <= 1000000000) {
                                 stack.add(num);
+                            } else{
+                                errorCheck = true;
+                                break;
                             }
                         } else {
-                            System.out.println("ERROR");
+                            errorCheck = true;
                             break;
                         }
                     } else if (command1.equals("POP")) {
                         if (!stack.isEmpty()) {
                             stack.pop();
+
                         } else {
-                            System.out.println("ERROR");
+                            errorCheck = true;
                             break;
                         }
                     } else if (command1.equals("INV")) {
                         if (!stack.isEmpty()) {
                             long a = stack.pop();
-                            a *= -1;
+                            a *=-1;
                             stack.push(a);
+
                         } else {
-                            System.out.println("ERROR");
+                            errorCheck = true;
                             break;
                         }
                     } else if (command1.equals("DUP")) {
                         if (!stack.isEmpty()) {
                             stack.push(stack.peek());
+
                         } else {
-                            System.out.println("ERROR");
+                            errorCheck = true;
                             break;
                         }
                     } else if (command1.equals("SWP")) {
-                        if (!stack.isEmpty()) {
+                        if (stack.size() > 1) {
                             long first = stack.pop();
                             long second = stack.pop();
                             stack.push(first);
                             stack.push(second);
+
                         } else {
-                            System.out.println("ERROR");
+                            errorCheck = true;
                             break;
                         }
                     } else if (command1.equals("ADD")) {
-                        if (!stack.isEmpty()) {
+                        if (stack.size() > 1) {
                             long first = stack.pop();
                             long second = stack.pop();
 
-                            if (first + second > 1000000000) {
-                                System.out.println("ERROR");
+                            long val = first + second;
+                            if (Math.abs(val) > 1000000000) {
+                                errorCheck = true;
                                 break;
                             }
+                            stack.push(val);
 
-                            stack.push(first + second);
                         } else {
-                            System.out.println("ERROR");
+                            errorCheck = true;
                             break;
                         }
                     } else if (command1.equals("SUB")) {
-                        if (!stack.isEmpty()) {
+                        if (stack.size() > 1) {
                             long first = stack.pop();
                             long second = stack.pop();
 
-                            if (second - first > 1000000000) {
-                                System.out.println("ERROR");
+                            long val = second - first;
+                            if (Math.abs(val) > 1000000000) {
+                                errorCheck = true;
                                 break;
                             }
+                            stack.push(val);
 
-                            stack.push(second - first);
                         } else {
-                            System.out.println("ERROR");
+                            errorCheck = true;
                             break;
                         }
                     } else if (command1.equals("MUL")) {
-                        if (!stack.isEmpty()) {
+                        if (stack.size() > 1) {
                             long first = stack.pop();
                             long second = stack.pop();
 
-                            if (first * second > 1000000000) {
-                                System.out.println("ERROR");
+                            long val = first * second;
+                            if (Math.abs(val) > 1000000000) {
+                                errorCheck = true;
                                 break;
                             }
+                            stack.push(val);
 
-                            stack.push(first * second);
                         } else {
-                            System.out.println("ERROR");
+                            errorCheck = true;
                             break;
                         }
                     } else if (command1.equals("DIV")) {
-                        if (!stack.isEmpty()) {
+                        if (stack.size() > 1) {
                             long first = stack.pop();
                             long second = stack.pop();
 
                             if (first == 0) {
-                                System.out.println("ERROR");
+                                errorCheck = true;
                                 break;
                             }
 
-                            long divVal = second / first;
-
-                            if (divVal > 1000000000) {
-                                System.out.println("ERROR");
-                                break;
-                            }
-
-                            if (second < 0) {
+                            long divVal;
+                            if (first * second < 0) {
+                                divVal = (-1) * (Math.abs(second) / Math.abs(first));
+                            } else{
                                 divVal = Math.abs(second) / Math.abs(first);
-                                if (first < 0 || second < 0) {
-                                    divVal *= -1;
-                                }
                             }
 
+                            if (Math.abs(divVal) > 1000000000) {
+                                errorCheck = true;
+                                break;
+                            }
                             stack.push(divVal);
+
                         } else {
-                            System.out.println("ERROR");
+                            errorCheck = true;
                             break;
                         }
                     } else if (command1.equals("MOD")) {
-                        if (!stack.isEmpty()) {
+                        if (stack.size() > 1) {
                             long first = stack.pop();
                             long second = stack.pop();
 
                             if (first == 0) {
-                                System.out.println("ERROR");
+                                errorCheck = true;
                                 break;
                             }
-                            long modVal = second % first;
+                            long modVal;
+                            if (second < 0) {
+                                modVal = (-1) * (Math.abs(second) % Math.abs(first));
+
+                            } else {
+                                modVal = Math.abs(second) % Math.abs(first);
+                            }
 
                             if (modVal > 1000000000) {
-                                System.out.println("ERROR");
+                                errorCheck = true;
                                 break;
                             }
-
-                            if (second < 0) {
-                                modVal = Math.abs(second) % Math.abs(first);
-                                if (first < 0 || second < 0) {
-                                    modVal *= -1;
-                                }
-
-                            }
                             stack.push(modVal);
+
                         } else {
-                            System.out.println("ERROR");
+                            errorCheck = true;
                             break;
                         }
                     }
-                    //commmand 하나씩 선택하는 for 문
 
                 }
-
-                if (stack.isEmpty() || stack.size() != 1) {
+                if (errorCheck == true || stack.size() != 1) {
                     System.out.println("ERROR");
                 } else {
                     long answer = stack.peek();
                     System.out.println(answer);
                 }
-
             }
+            System.out.println();
 
         }
+
     }
 }
-

@@ -7,6 +7,8 @@
  *
  * 3. dfs, 구현
  *
+ * 4. 배운게 많은 문제
+ *
  */
 
 import java.io.BufferedReader;
@@ -16,7 +18,10 @@ import java.util.StringTokenizer;
 
 public class BOJ_3987_보이저1호 {
 
-    static int n, m, xPos, yPos, answer, maxVal;
+    static int n, m, xPos, yPos, answerIndex, answer2, maxVal;
+    static int[] arr;
+    static String answer1;
+    static boolean Flag;
     static char[][] map;
     static int[][] dir = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
@@ -26,7 +31,10 @@ public class BOJ_3987_보이저1호 {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         map = new char[n + 1][m + 1];
-        answer = Integer.MIN_VALUE;
+        answer1 = "";
+        answer2 = Integer.MIN_VALUE;
+        Flag = false;
+        answerIndex = -1;
 
         for (int i = 1; i <= n; i++) {
             String input = br.readLine();
@@ -38,33 +46,60 @@ public class BOJ_3987_보이저1호 {
         xPos = Integer.parseInt(st.nextToken());
         yPos = Integer.parseInt(st.nextToken());
 
+        arr = new int[4];
         for (int t = 0; t < 4; t++) {
-            dfs(xPos, yPos, t, 1);
+            dfs(xPos, yPos, t, 1, t);
         }
-        answer = Math.max(answer, maxVal);
 
-        System.out.println(answer);
+        for (int i = 0; i < 4; i++) {
+            if (arr[i] == 0) {
+                answerIndex = i;
+                break;
+            }
+        }
+        if (answerIndex == -1) {
+            for (int i = 0; i < 4; i++) {
+                if (arr[i] == maxVal) {
+                    answerIndex = i;
+                    break;
+                }
+            }
+        }
+
+        answer1 = startDir(answerIndex);
+        answer2 = arr[answerIndex];
+
+        if (arr[answerIndex] == 0) {
+            System.out.println(answer1);
+            System.out.println("Voyager");
+        } else {
+            System.out.println(answer1);
+            System.out.println(answer2);
+        }
     }
 
 
-    public static void dfs(int x, int y, int direction, int count) {
-
-//        int startDirection = direction;
-
-        int dx = x + dir[direction][0];
-        int dy = y + dir[direction][1];
-
-        if (!isRangeof(dx, dy) || map[dx][dy] == 'C') {
-            if (maxVal < count) {
-                maxVal = Math.max(maxVal, count);
-            }
+    public static void dfs(int x, int y, int direction, int count, int start) {
+        if (count == n * m) {
+            arr[start] = 0;
         } else {
 
-            if (map[dx][dy] == '/' || map[dx][dy] == '\\') {
-                int newd = changeDirection(dx, dy, direction);
-                dfs(dx, dy, newd, count + 1);
+            int dx = x + dir[direction][0];
+            int dy = y + dir[direction][1];
+
+            if (!isRangeof(dx, dy) || map[dx][dy] == 'C') {
+                if (maxVal <= count) {
+                    maxVal = Math.max(maxVal, count);
+                }
+                arr[start] = count;
             } else {
-                dfs(dx, dy, direction, count + 1);
+
+                if (map[dx][dy] == '/' || map[dx][dy] == '\\') {
+                    int newDirection = changeDirection(dx, dy, direction);
+                    dfs(dx, dy, newDirection, count + 1, start);
+                } else {
+                    dfs(dx, dy, direction, count + 1, start);
+                }
             }
         }
     }
@@ -108,4 +143,17 @@ public class BOJ_3987_보이저1호 {
         }
     }
 
+    public static String startDir(int t) {
+        String startDir = "";
+        if (t == 0) {
+            startDir = "U";
+        } else if (t == 1) {
+            startDir = "R";
+        } else if (t == 2) {
+            startDir = "D";
+        } else if (t == 3) {
+            startDir = "L";
+        }
+        return startDir;
+    }
 }

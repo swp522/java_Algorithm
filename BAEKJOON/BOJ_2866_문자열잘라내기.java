@@ -7,6 +7,14 @@
  *
  * 3. 이분 탐색, 구현
  *
+ * 4. check()에서 tmp 만들어주는게 시간이 많이 걸리는 듯 하다 !
+ *
+ *    check()에서 행의 끝까지 tmp 만들어주고 중복 체크해야함 -> tmp에 acdbbb 이렇게 들어간 경우
+                                                                 acdccc
+ *
+ *    bbb, ccc는 중복이 아니니까 start부터 row(끝) 까지 for문 돌아야함
+ *
+ *
  */
 
 import java.io.BufferedReader;
@@ -35,52 +43,69 @@ public class BOJ_2866_문자열잘라내기 {
             }
         }
 
-        binarySearch(0, row - 1, row - 1);
-
-        System.out.println(answer);
+        binarySearch(1, row - 1);
     }
 
 
-    public static void binarySearch(int left, int right, int end) {
+    public static void binarySearch(int left, int right) {
 
+        boolean flag = true;
+        int mid = 0;
 
-        if (left > right) {
-            return;
+        while (left <= right) {
+
+            mid = (left + right) / 2;
+
+            flag = check(mid, right);
+
+            if (flag) {
+                left = mid + 1; // 중복 없으면 mid + 1부터 검사
+            } else {
+                right = mid - 1;    // 중복 있으면 mid -1 까지만 검사
+            }
         }
 
-        int mid = (left + right) / 2;
-
-        boolean flag = check(mid, end);
-
-        if (flag) {
-            if (answer < mid) { // 중복 발생 안한 행 중 최대값이 answer
-                answer = mid;
-            }
-            binarySearch(mid + 1, right, end);   // 중복 없으면 mid + 1부터 검사
+        if (!flag) {
+            System.out.println(mid - 1);
         } else {
-            binarySearch(left, mid - 1, end);    // 중복 있으면 mid -1 까지만 검사
+            System.out.println(mid);
         }
     }
 
 
     public static boolean check(int start, int end) {
 
-        for (int i = start; i <= end; i++) {
+        ArrayList<String> list = new ArrayList<>();
 
-            ArrayList<String> list = new ArrayList<>();
-
-            for (int j = 0; j < col; j++) {
-                String temp = map[start][j];
-
-                if (list.contains(temp)) {
-                    return false;
-                }
-
-                list.add(temp);
-
+        for (int j = 0; j < col; j++) {
+            String tmp = "";
+            for (int i = start; i <= row; i++) {
+                tmp += map[i][j];
+            }
+            if (list.contains(tmp)) {
+                return false;
+            } else {
+                list.add(tmp);
             }
         }
         return true;
     }
 
 }
+
+//        if (left > right) {
+//            return;
+//        }
+//
+//        int mid = (left + right) / 2;
+//
+//        boolean flag = check(mid, end);
+//
+//        if (flag) {
+//            if (answer < mid) { // 중복 발생 안한 행 중 최대값이 answer
+//                answer = mid;
+//            }
+//            binarySearch(mid + 1, right, end);   // 중복 없으면 mid + 1부터 검사
+//        } else {
+//            binarySearch(left, mid - 1, end);    // 중복 있으면 mid -1 까지만 검사
+//        }

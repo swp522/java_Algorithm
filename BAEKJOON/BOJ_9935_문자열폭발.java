@@ -6,6 +6,8 @@
  * 2.  1 <= input.length() <= 1,000,000
  *
  * 3. 문자열, 구현, Stack 사용
+ * 
+ *    stack 쓸 때는 디버그 찍으면서 단계별로 생각해보기
  *
  */
 
@@ -48,7 +50,7 @@ public class BOJ_9935_문자열폭발 {
                     }
                 }
 
-                if (flag) {
+                if (!flag) {
                     for (int j = 0; j < bombLength; j++) {
                         stack.pop();
                     }
@@ -60,6 +62,7 @@ public class BOJ_9935_문자열폭발 {
         for(Character ch : stack){
             sb.append(ch);
         }
+        
         return sb.toString();
     }
 }

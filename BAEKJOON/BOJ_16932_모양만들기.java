@@ -9,7 +9,13 @@
  *
  * 4. 넘버링 이후에 어떻게 할지 로직 생각하는데 시간이 너무 오래걸렸다.
  *
- *    시간 초과 발생 -> solve()에서 나는 것 같은데 해결중
+ * 5. 1) grouping() 하고 boolean[] groupVisited 만들어서
+ *
+ *     solve() 함수 4방향 탐색시에 한 번 검색했던 group이면 visited 안하도록 함
+ *
+ *    2) zeroList의 타입을 LinkedList에서 ArrayList로 하니 시간 초과 해결 !
+ *
+ *    3) Arrays.fill() 보다 그냥 if문 돌아서 groupVisited[group] = false 초기화 하는게 시간 두배 빠름
  *
  */
 
@@ -23,9 +29,10 @@ public class BOJ_16932_모양만들기 {
     static int n, m, max, groupNum, answer;
     static int[][] map, dir = {{-1, 0}, {0, 1}, {0, -1}, {1, 0}};
     static boolean[][] visited;
-    static LinkedList<Node> q, zeroList;
+    static LinkedList<Node> q;
+    static ArrayList<Node> zeroList;
     static ArrayList<Integer> countList;
-    static boolean[] sectorVisited;
+    static boolean[] groupVisited;
 
     static class Node {
         int x;
@@ -45,8 +52,8 @@ public class BOJ_16932_모양만들기 {
         map = new int[n][m];
         visited = new boolean[n][m];
         q = new LinkedList<>();
-        zeroList = new LinkedList<>();
-        countList = new ArrayList<>();
+        zeroList = new ArrayList<Node>();
+        countList = new ArrayList<Integer>();
 
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
@@ -71,13 +78,12 @@ public class BOJ_16932_모양만들기 {
         }
 
         answer = Integer.MIN_VALUE;
-
-        sectorVisited = new boolean[groupNum + 1];
+        groupVisited = new boolean[groupNum + 1];
 
         solve();
-
         System.out.println(answer + 1);
     }
+
 
     private static void grouping(int x, int y) {
         int count = 0;
@@ -109,7 +115,7 @@ public class BOJ_16932_모양만들기 {
 
     private static void solve() {
         for (int z = 0; z < zeroList.size(); z++) {
-            int sum = 1;
+            int sum = 0;
 
             for (int i = 0; i < 4; i++) {
                 int zx = zeroList.get(z).x + dir[i][0];
@@ -117,9 +123,9 @@ public class BOJ_16932_모양만들기 {
 
                 if (isRange(zx, zy) && map[zx][zy] != 0) {
                     int group = map[zx][zy];
-                    if (!sectorVisited[group]) {
+                    if (!groupVisited[group]) {
                         sum += countList.get(group);
-                        sectorVisited[group] = true;
+                        groupVisited[group] = true;
                     }
                 }
             }
@@ -127,10 +133,9 @@ public class BOJ_16932_모양만들기 {
             for (int i = 0; i < 4; i++) {
                 int zx = zeroList.get(z).x + dir[i][0];
                 int zy = zeroList.get(z).y + dir[i][1];
-                if (!isRange(zx, zy)) {
-                    continue;
+                if (isRange(zx, zy) && map[zx][zy] != 0) {
+                    groupVisited[map[zx][zy]] = false;
                 }
-                sectorVisited[map[zx][zy]] = false;
             }
 
             answer = Math.max(answer, sum);

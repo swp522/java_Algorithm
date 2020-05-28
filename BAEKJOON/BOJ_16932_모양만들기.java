@@ -25,6 +25,7 @@ public class BOJ_16932_모양만들기 {
     static boolean[][] visited;
     static LinkedList<Node> q, zeroList;
     static ArrayList<Integer> countList;
+    static boolean[] sectorVisited;
 
     static class Node {
         int x;
@@ -71,6 +72,8 @@ public class BOJ_16932_모양만들기 {
 
         answer = Integer.MIN_VALUE;
 
+        sectorVisited = new boolean[groupNum + 1];
+
         solve();
 
         System.out.println(answer + 1);
@@ -84,8 +87,7 @@ public class BOJ_16932_모양만들기 {
 
         while (!q.isEmpty()) {
             count++;
-            Node t = q.peek();
-            q.pop();
+            Node t = q.pop();
 
             for (int i = 0; i < 4; i++) {
                 int dx = t.x + dir[i][0];
@@ -106,49 +108,30 @@ public class BOJ_16932_모양만들기 {
 
 
     private static void solve() {
-
-        int[] flag = new int[countList.size()];
-
         for (int z = 0; z < zeroList.size(); z++) {
-            int sum = 0;
-//            ArrayList<Integer> groupList = new ArrayList<>();
-
-            Arrays.fill(flag, 0);
+            int sum = 1;
 
             for (int i = 0; i < 4; i++) {
                 int zx = zeroList.get(z).x + dir[i][0];
                 int zy = zeroList.get(z).y + dir[i][1];
 
-                if (isRange(zx, zy) && map[zx][zy] != 0 && flag[map[zx][zy]] == 0) {
-//                    groupList.add(map[zx][zy]);
-                    flag[map[zx][zy]] = 1;
+                if (isRange(zx, zy) && map[zx][zy] != 0) {
+                    int group = map[zx][zy];
+                    if (!sectorVisited[group]) {
+                        sum += countList.get(group);
+                        sectorVisited[group] = true;
+                    }
                 }
             }
 
-            for (int i = 0; i < flag.length; i++) {
-                if (flag[i] == 1) {
-                    sum += countList.get(i);
-                } else {
+            for (int i = 0; i < 4; i++) {
+                int zx = zeroList.get(z).x + dir[i][0];
+                int zy = zeroList.get(z).y + dir[i][1];
+                if (!isRange(zx, zy)) {
                     continue;
                 }
+                sectorVisited[map[zx][zy]] = false;
             }
-
-
-//            if (!groupList.isEmpty()) {
-//                Collections.sort(groupList);
-
-//                sum += countList.get(groupList.get(0));
-//
-//                for (int g = 1; g < groupList.size(); g++) {
-//                    if (!groupList.get(g).equals(groupList.get(g - 1))) {
-//                        sum += countList.get(groupList.get(g));
-//                    }
-//                }
-
-//                for (int g = 0; g < groupList.size(); g++) {
-//                    sum += countList.get(groupList.get(g));
-//                }
-//            }
 
             answer = Math.max(answer, sum);
         }

@@ -11,7 +11,6 @@
  *
  *    방향 전환 왼쪽이면 + 3 하고, 오른쪽이면 + 1 해준 다으마에 %4 로 처리
  *
- *
  */
 
 import java.io.BufferedReader;
@@ -76,15 +75,15 @@ public class BOJ_3190_뱀 {
     public static void solve() {
         int sec = 0;
         int snakeDir = 1;   // 초기 방향 오른쪽
-        int timeIndex = 0;
+        int changeIndex = 0;
         map[0][0] = 2;
         snake.add(new Point(0, 0));
 
         while (true) {
             // 방향 전환
-            if (timeIndex < l && time[timeIndex] == sec) {
-                snakeDir = (snakeDir + direction[timeIndex]) % 4;
-                timeIndex++;
+            if (changeIndex < l && time[changeIndex] == sec) {
+                snakeDir = (snakeDir + direction[changeIndex]) % 4;
+                changeIndex++;
             }
             // 머리 위치를 한칸 전진 시킴
             int dx = snake.getFirst().x + dir[snakeDir][0];
@@ -102,7 +101,7 @@ public class BOJ_3190_뱀 {
                 break;
             }
 
-            // 사과 먹은 경우와 통로 지나는 경우
+            // 사과 먹은 경우와 빈칸 지나는 경우
             if (map[dx][dy] == 1) {
                 map[dx][dy] = 2;
                 snake.addFirst(new Point(dx, dy));

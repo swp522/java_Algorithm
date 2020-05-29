@@ -9,7 +9,7 @@
  *
  *    while 문에서 터뜨리고(bfs) 내리기 반복
  *
- *    내리는거 로직 참고
+ *    내리는거 로직은 참고함
  */
 
 import java.io.BufferedReader;
@@ -24,7 +24,7 @@ public class BOJ_11559_PuyoPuyo {
     static int[][] dir = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
     static char[][] map;
     static boolean[][] visited;
-    static int bombCount, total;
+    static int bombCount, round;
 
     static class Puyo {
         int x;
@@ -40,7 +40,7 @@ public class BOJ_11559_PuyoPuyo {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         map = new char[12][6];
-        total = 0;
+        round = 0;
 
         for (int i = 0; i < 12; i++) {
             char[] input = br.readLine().toCharArray();
@@ -60,18 +60,18 @@ public class BOJ_11559_PuyoPuyo {
                     }
                 }
             }
-            // 터질게 더 이상 없는 경우
+            // 터질게 없는 경우
             if (bombCount == 0) {
                 break;
             } else {
-                total++;
+                round++;
             }
 
             // 남은 뿌요들 밑으로 내리기
             getDown();
         }
 
-        System.out.println(total);
+        System.out.println(round);
     }
 
 
@@ -79,13 +79,13 @@ public class BOJ_11559_PuyoPuyo {
         char target = map[p.x][p.y];
         int count = 0;
         Queue<Puyo> q = new LinkedList<Puyo>();
-        ArrayList<Puyo> saveList = new ArrayList<Puyo>();
+        ArrayList<Puyo> puyoList = new ArrayList<Puyo>();
         visited[p.x][p.y] = true;
         q.add(p);
 
         while (!q.isEmpty()) {
             Puyo t = q.poll();
-            saveList.add(t);
+            puyoList.add(t);
             count++;
 
             for (int i = 0; i < 4; i++) {
@@ -102,8 +102,8 @@ public class BOJ_11559_PuyoPuyo {
         // 4개 이상 연결된 경우 . 으로 바꿔주기
         if (count >= 4) {
             bombCount++;
-            for (int i = 0; i < saveList.size(); i++) {
-                Puyo tempPuyo = saveList.get(i);
+            for (int i = 0; i < puyoList.size(); i++) {
+                Puyo tempPuyo = puyoList.get(i);
                 map[tempPuyo.x][tempPuyo.y] = '.';
             }
         }
@@ -115,21 +115,21 @@ public class BOJ_11559_PuyoPuyo {
             for (int j = 5; j >= 0; j--) {
                 if (map[i][j] != '.') {
 
-                    int t = -1;
+                    int target = -1;
 
-                    // 해당 열에 가장 밑에 있는 . 의 index 찾아서 t로 설정
+                    // 해당 열에서 가장 밑에 있는 . 의 행 index 찾아서 target 으로 설정
                     for (int k = 11; k > i; k--) {
                         if (map[k][j] == '.') {
-                            t = k;
+                            target = k;
                             break;
                         }
                     }
 
-                    // t 가 존재하면 (i, j)에 있는 Puyo를 (t, j) 로 내리기
-                    if (t != -1) {
+                    // target 가 존재하면 (i, j)에 있는 Puyo 를 (target, j) 로 내리기
+                    if (target != -1) {
                         char temp = map[i][j];
-                        map[i][j] = map[t][j];
-                        map[t][j] = temp;
+                        map[i][j] = map[target][j];
+                        map[target][j] = temp;
                     }
 
                 }

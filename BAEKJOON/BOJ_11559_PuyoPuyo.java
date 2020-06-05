@@ -110,28 +110,43 @@ public class BOJ_11559_PuyoPuyo {
 
     }
 
-    private static void getDown() {
-        for (int i = 11; i >= 0; i--) {
-            for (int j = 5; j >= 0; j--) {
-                if (map[i][j] != '.') {
-
-                    int target = -1;
-
-                    // 해당 열에서 가장 밑에 있는 . 의 행 index 찾아서 target 으로 설정
-                    for (int k = 11; k > i; k--) {
-                        if (map[k][j] == '.') {
-                            target = k;
-                            break;
-                        }
-                    }
-
-                    // target 가 존재하면 (i, j)에 있는 Puyo 를 (target, j) 로 내리기
-                    if (target != -1) {
-                        char temp = map[i][j];
-                        map[i][j] = map[target][j];
-                        map[target][j] = temp;
-                    }
-
+//    private static void getDown() {
+//        for (int i = 11; i >= 0; i--) {
+//            for (int j = 5; j >= 0; j--) {
+//                if (map[i][j] != '.') {
+//
+//                    int target = -1;
+//
+//                    // 해당 열에서 가장 밑에 있는 . 의 행 index 찾아서 target 으로 설정
+//                    for (int k = 11; k > i; k--) {
+//                        if (map[k][j] == '.') {
+//                            target = k;
+//                            break;
+//                        }
+//                    }
+//
+//                    // target 가 존재하면 (i, j)에 있는 Puyo 를 (target, j) 로 내리기
+//                    if (target != -1) {
+//                        char temp = map[i][j];
+//                        map[i][j] = map[target][j];
+//                        map[target][j] = temp;
+//                    }
+//
+//                }
+//            }
+//        }
+//
+//    }
+    
+        public static void getDown() {
+        for (int col = 0; col < 6; col++) {
+            int index = 11;
+            for (int row = 11; row >= 0; row--) {
+                if (map[row][col] != '.') {
+                    char target = map[row][col];
+                    map[row][col] = '.';
+                    map[index][col] = target;
+                    index--;
                 }
             }
         }

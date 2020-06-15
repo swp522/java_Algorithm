@@ -9,6 +9,8 @@
  *
  *    재귀 타면서 visited 처리할 떄 false 안해주니까 통과
  *
+ *    재귀 개념 또 흔들렸는데 (x, y)와 2가지 (dx, dy) 좌표 그려놓고 뒤에서 부터 생각해보기
+ *
  */
 
 import java.io.BufferedReader;

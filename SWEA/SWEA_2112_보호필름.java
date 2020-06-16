@@ -43,10 +43,10 @@ public class SWEA_2112_보호필름 {
                 }
             }
 
-//            if(k == 0){
-//                System.out.println("#" + t + " " + 0);
-//                continue;
-//            }
+            if(k == 1){
+                System.out.println("#" + t + " " + 0);
+                continue;
+            }
 
             dfs(0, 0);
 
@@ -60,7 +60,7 @@ public class SWEA_2112_보호필름 {
             return;
         }
 
-        if (depth >= d) {
+        if (depth == d) {
             if (qualityTest()) {
                 answer = Math.min(answer, countOfInjection);
             }

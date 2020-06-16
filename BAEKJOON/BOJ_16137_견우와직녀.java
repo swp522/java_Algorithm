@@ -5,35 +5,38 @@
  *
  * 2. 2 ≤ N ≤ 10,  2 ≤ M ≤ 20,  0 <= 각 칸 값 <= 20
  *
- * 3. bfs, 구현
+ * 3. 1). bfs 탐색 전에 절벽이 교차하는지 체크
  *
- * 4. 문제 이해가 어려웠다
+ *    2). 골랐으면 주기 m 설정하고 bfs() 시작
  *
- *    아직 미완성
+ *    3). (0, 0) 부터 시작해서 탐색 시작
+ *
+ *    4). 그냥 길 / 두번 연속 오작교 못 건넘 / 주기가 있을 조건 구현
+ *
+ * 4. 문제 이해가 너무 오래 걸렸다
  */
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class BOJ_16137_견우와직녀 {
 
-    static int n, m, count;
-    static int[][] map, dir = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+    static int n, m, answer;
+    static int[][] map, dir = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};   // 남 동 북 서
     static boolean[][] visited;
     static Queue<Place> q;
-    static ArrayList<Place> canMakeOjakGyo;
 
     static class Place {
-        int x, y;
+        int x, y, time;
 
-        public Place(int x, int y) {
+        public Place(int x, int y, int time) {
             this.x = x;
             this.y = y;
+            this.time = time;
         }
     }
 
@@ -43,65 +46,89 @@ public class BOJ_16137_견우와직녀 {
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        map = new int[n][n];
-        visited = new boolean[n][n];
-        count = 0;
 
-        canMakeOjakGyo = new ArrayList<>();
+        q = new LinkedList<>();
+        map = new int[n][n];
+        answer = Integer.MAX_VALUE;
 
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
-                if(map[i][j] == 0 && isoJakGyo(i, j)){
-                    canMakeOjakGyo.add(new Place(i, j));
+            }
+        }
+
+        checkIfTheCliffsCross();
+
+        System.out.println(answer);
+    }
+
+
+    public static void checkIfTheCliffsCross() {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (map[i][j] == 0) {
+                    boolean[] cliffs = new boolean[4];
+
+                    for (int d = 0; d < 4; d++) {
+                        int dx = i + dir[d][0];
+                        int dy = j + dir[d][1];
+
+                        if (isRange(dx, dy) && map[dx][dy] == 0) {
+                            cliffs[d] = true;
+                        }
+                    }
+
+                    if ((cliffs[0] && cliffs[1]) || (cliffs[1] && cliffs[2]) ||
+                            (cliffs[2] && cliffs[3]) || (cliffs[3] && cliffs[0])) {
+                        continue;
+                    }
+
+                    map[i][j] = m;
+                    visited = new boolean[n][n];
+                    bfs();
+                    map[i][j] = 0;
                 }
             }
         }
-
-        bfs(new Place(0, 0));
-
-        for(int i = 0; i < canMakeOjakGyo.size(); i++){
-            map[canMakeOjakGyo.get(i).x][canMakeOjakGyo.get(i).y] = m;
-
-        }
-
-        // 구현중
-
-        System.out.println(count);
     }
 
 
-    public static void bfs(Place place) {
-        q = new LinkedList<>();
-        visited[place.x][place.y] = true;
-        q.add(place);
+    public static void bfs() {
+        visited[0][0] = true;
+        q.add(new Place(0, 0, 0));
 
         while (!q.isEmpty()) {
-            Place p = q.poll();
+            Place position = q.poll();
+
+            if (position.x == n - 1 && position.y == n - 1) {
+                answer = Math.min(answer, position.time);
+                return;
+            }
+
+            for (int i = 0; i < 4; i++) {
+                int dx = position.x + dir[i][0];
+                int dy = position.y + dir[i][1];
+
+                if (isRange(dx, dy) && !visited[dx][dy]) {
+                    if (map[dx][dy] == 1) {
+                        visited[dx][dy] = true;
+                        q.add(new Place(dx, dy, position.time + 1));
+                    }
+
+                    if (map[dx][dy] > 1 && map[position.x][position.y] == 1) {
+                        if ((position.time + 1) % map[dx][dy] == 0) {
+                            visited[dx][dy] = true;
+                            q.add(new Place(dx, dy, position.time + 1));
+                        } else {
+                            q.add(new Place(position.x, position.y, position.time + 1));
+                        }
+                    }
+                }
+
+            }
 
         }
-
-    }
-
-
-    public static boolean isoJakGyo(int x, int y) {
-        int ax, ay, bx, by;
-        for (int i = 0; i < 4; i++) {
-            ax = x + dir[i][0];
-            ay = y + dir[i][1];
-            if (i == 3) {
-                bx = x + dir[0][0];
-                by = y + dir[0][1];
-            } else {
-                bx = x + dir[i + 1][0];
-                by = y + dir[i + 1][1];
-            }
-            if (isRange(ax, ay) && isRange(bx, by) && map[ax][ay] == 0 && map[bx][by] == 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
 

@@ -27,13 +27,13 @@ public class BOJ_1063_킹 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         String king = st.nextToken();
-        kingX = (king.charAt(1) - '0' - 1);
+        kingX = 7 - (king.charAt(1) - '0' - 1);
         kingY = king.charAt(0) - 'A';
 
 //        System.out.println(kingX + " " + kingY);
 
         String rock = st.nextToken();
-        rockX = (rock.charAt(1) - '0' - 1);
+        rockX = 7 - (rock.charAt(1) - '0' - 1);
         rockY = rock.charAt(0) - 'A';
 //        System.out.println(rockX + " " + rockY);
 
@@ -57,17 +57,18 @@ public class BOJ_1063_킹 {
                 continue;
             }
 
-//            System.out.println(kingX + " " + kingY);
-//            System.out.println(rockX + " " + rockY);
+            System.out.println(kingX + " " + kingY);
+            System.out.println(rockX + " " + rockY);
         }
 
         String answer1 = "";
         answer1 += (char) (kingY + 65);
-        System.out.println(answer1 + kingX);
 
         String answer2 = "";
         answer2 += (char) (rockY + 65);
-        System.out.println(answer2 + rockX);
+
+        System.out.println(answer1 + (8 - kingX));
+        System.out.println(answer2 + (8 - rockX));
     }
 
 

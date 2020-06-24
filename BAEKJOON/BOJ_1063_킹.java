@@ -5,11 +5,15 @@
  *
  * 2. N <= 50
  *
- * 3. 굳이 맵 안그려도 될 듯
+ * 3. 1). 굳이 맵 안그려도 될 듯해서 좌표 값만 갱신해줬따
  *
- * 4. String 값 받을 떄 if 조건절 안에서 비교할 경우 equals 써야 인식한다
+ *    2). 좌표값 처리하는게 순서가 거꾸로여서 처음에 좀 귀찮았다
  *
- *    아직 미완성
+ *    3). 조건 구현할 때 킹 = 돌 인 경우 돌이 이동했을 때 영역밖으로 나가면
+ *
+ *        킹과 돌 둘다 복구시켜야 하는데 킹을 안해줬었음 !
+ *
+ * 4. String 값 받을 떄 if 조건절 안에서 비교할 경우 equals 써야 인식할 수 있는거 깜박하지 말기
  *
  */
 
@@ -30,12 +34,9 @@ public class BOJ_1063_킹 {
         kingX = 7 - (king.charAt(1) - '0' - 1);
         kingY = king.charAt(0) - 'A';
 
-//        System.out.println(kingX + " " + kingY);
-
         String rock = st.nextToken();
         rockX = 7 - (rock.charAt(1) - '0' - 1);
         rockY = rock.charAt(0) - 'A';
-//        System.out.println(rockX + " " + rockY);
 
         n = Integer.parseInt(st.nextToken());
 
@@ -50,15 +51,14 @@ public class BOJ_1063_킹 {
                         rockX = rockX + dir[orderNum][0];
                         rockY = rockY + dir[orderNum][1];
                     } else {
+                        kingX = kingX - dir[orderNum][0];
+                        kingY = kingY - dir[orderNum][1];
                         continue;
                     }
                 }
             } else {
                 continue;
             }
-
-            System.out.println(kingX + " " + kingY);
-            System.out.println(rockX + " " + rockY);
         }
 
         String answer1 = "";

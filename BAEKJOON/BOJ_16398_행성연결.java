@@ -7,7 +7,7 @@
  *
  * 3. 1). MST, 크루스칼 알고리즘 구현
  *
- *    2). long sum
+ *    2). long sum 안 잡아줘서 50% 에서 계속 틀린 듯 하다
  *
  */
 
@@ -36,17 +36,14 @@ public class BOJ_16398_행성연결 {
             StringTokenizer st = new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
-                if(i < j){
-                    edgeList.add(new Edge(i, j, map[i][j]));
-                }
             }
         }
 
-//        for (int i = 0; i < n; i++) {
-//            for (int j = i + 1; j < n; j++) {
-//                edgeList.add(new Edge(i, j, map[i][j]));
-//            }
-//        }
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                edgeList.add(new Edge(i, j, map[i][j]));
+            }
+        }
 
         Collections.sort(edgeList);
 

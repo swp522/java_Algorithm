@@ -5,12 +5,15 @@
  *
  * 2. 0 ≤ Pi(유통기한) ≤ 100 , 1 ≤ Si(에너지) ≤ 100
  *
- * 3. 1). 문제를 대충 읽고 처음에 단순 구현했는데 틀림 -> 음식 순서가 정해진게 아니었음
+ * 3. 구현, dfs
+ * 
+ * 4. 1). 문제를 대충 읽고 처음에 단순 구현했는데 틀림 -> 음식 순서가 정해진게 아니었음
  *
- *    2).
- *
- * 4. 아직 미완성
- *
+ *    2). Comparable 구현에서 시간 소비함
+ *    
+ *       - s가 같으면 p 오름차순 / s가 다르면 s 내림차순 정렬
+ *       
+ *    3). 재귀함수에서 인자를 갖고 다니지 않는데 time -= list.get(i).s; 안해줬었음
  */
 
 import java.io.BufferedReader;
@@ -37,10 +40,12 @@ public class BOJ_12429_생존자small {
 
         @Override
         public int compareTo(Food o) {
-            if (this.s < o.s)
-                return -1;
-            else
-                return 1;
+            if(this.s == o.s){
+                if(this.p < o.s){
+                    return -1;
+                }
+            }
+            return o.s - this.s;
         }
     }
 
@@ -52,7 +57,8 @@ public class BOJ_12429_생존자small {
             foods = new int[n][2];
             visited = new boolean[n];
             list = new ArrayList<>();
-            answer = -1;
+            answer = 0;
+            time = 0;
 
             for (int i = 0; i < n; i++) {
                 StringTokenizer st = new StringTokenizer(br.readLine());
@@ -63,25 +69,23 @@ public class BOJ_12429_생존자small {
             }
 
             Collections.sort(list);
-            visited[0] = true;
-            time = list.get(0).s;
 
-            solve();
+            dfs();
 
             System.out.println("Case #" + t + ": " + answer);
         }
     }
 
-    public static void solve() {
+    public static void dfs() {
 
         answer = Math.max(answer, time);
 
-        for (int i = 1; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             if (!visited[i] && list.get(i).p >= time){
                 visited[i] = true;
-                time += list.get(i).p;
-                solve();
-//                time -= list.get(i).p;
+                time += list.get(i).s;
+                dfs();
+                time -= list.get(i).s;
                 visited[i] = false;
             }
         }

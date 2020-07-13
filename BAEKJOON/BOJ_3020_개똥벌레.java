@@ -5,13 +5,17 @@
  *
  * 2. n은 짝수, 2 ≤ N ≤ 200,000, 2 ≤ H ≤ 500,000 , 장애물 크기 < H
  *
- * 3.
+ * 3. 아직 미완성
  *
  *
  */
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class BOJ_3020_개똥벌레 {
     public static void main(String[] args){
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     }
 }

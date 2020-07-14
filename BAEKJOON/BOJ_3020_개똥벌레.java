@@ -15,7 +15,6 @@ import java.io.InputStreamReader;
 
 public class BOJ_3020_개똥벌레 {
     public static void main(String[] args){
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     }
 }

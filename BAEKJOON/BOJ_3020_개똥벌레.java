@@ -24,6 +24,8 @@ public class BOJ_3020_개똥벌레 {
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         solve();
+        
+        System.out.println(answer);
     }
 
     public static void solve(){

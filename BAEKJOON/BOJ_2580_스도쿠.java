@@ -5,7 +5,7 @@
  *
  * 2.
  *
- * 3. 미완성
+ * 3. 아직 미완성
  *
  *
  */
@@ -18,5 +18,9 @@ public class BOJ_2580_스도쿠 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 
+    }
+    
+    public static void solve(){
+        
     }
 }

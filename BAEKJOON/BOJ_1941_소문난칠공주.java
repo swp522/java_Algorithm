@@ -23,4 +23,8 @@ public class BOJ_1941_소문난칠공주 {
         map = new char[5][5];
 
     }
+    
+    public static void solve(){
+
+    }
 }

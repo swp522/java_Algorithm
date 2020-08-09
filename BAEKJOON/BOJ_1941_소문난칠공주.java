@@ -16,7 +16,8 @@ import java.util.StringTokenizer;
 public class BOJ_1941_소문난칠공주 {
 
     static char map[][];
-
+    static int answer;
+    
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());

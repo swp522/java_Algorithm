@@ -24,6 +24,8 @@ public class BOJ_1941_소문난칠공주 {
         map = new char[5][5];
         answer = 0;
         
+        solve();
+        
         System.out.println(answer);
 
     }

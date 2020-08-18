@@ -22,11 +22,9 @@ public class BOJ_1941_소문난칠공주 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         map = new char[5][5];
-        answer = 0;
+        answer = 1;
         
-        solve();
-        
-        System.out.println(answer);
+        System.out.println();
 
     }
     

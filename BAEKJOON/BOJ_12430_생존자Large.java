@@ -68,5 +68,9 @@ public class BOJ_12430_생존자Large {
             System.out.println("Case #" + t + ": " + answer);
         }
     }
+    
+    public static void solve(){
+        
+    }
 
 }

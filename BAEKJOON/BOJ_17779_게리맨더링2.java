@@ -14,6 +14,7 @@
  * 4. 1). 문제 조건을 이해하고 if 절에 넣는게 오래걸렸음
  *
  *    2). 5번 영역 어떻게 sum 할지 참고함
+ 
  */
 
 import java.io.BufferedReader;
@@ -127,7 +128,7 @@ public class BOJ_17779_게리맨더링2 {
         }
     }
 
-    private static int getDifference() {
+    public static int getDifference() {
         int maxNum = Integer.MIN_VALUE;
         int minNum = Integer.MAX_VALUE;
 

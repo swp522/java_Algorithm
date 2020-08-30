@@ -18,6 +18,7 @@ import java.util.StringTokenizer;
 public class BOJ_3020_개똥벌레 {
 
     static int answer;
+    static int row, col;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

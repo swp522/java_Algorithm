@@ -30,7 +30,9 @@ public class BOJ_3020_개똥벌레 {
         System.out.println(answer);
     }
 
-    public static void solve(){
+    private static void solve(){
 
     }
+    
+
 }

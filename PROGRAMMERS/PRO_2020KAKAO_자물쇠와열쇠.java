@@ -29,6 +29,10 @@ public class PRO_2020KAKAO_자물쇠와열쇠 {
 
         return answer;
     }
+    
+    public static void solve(){
+        
+    }
 
 
 }

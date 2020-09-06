@@ -7,8 +7,6 @@
  *
  * 3.
  *
- *
- *
  */
 
 public class PRO_2020KAKAO_자물쇠와열쇠 {

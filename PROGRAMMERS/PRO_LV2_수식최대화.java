@@ -31,6 +31,7 @@ public class PRO_LV2_수식최대화 {
 
     public static void main(String[] args) {
         String expression = "100-200*300-500+20";
+        //String expression = " ";
 
         System.out.println(solution(expression));
     }

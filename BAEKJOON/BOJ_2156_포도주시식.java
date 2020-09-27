@@ -17,4 +17,8 @@ public class BOJ_2156_포도주시식 {
     public static void main(String[] args){
 
     }
+    
+    public static void solve(){
+        
+    }
 }

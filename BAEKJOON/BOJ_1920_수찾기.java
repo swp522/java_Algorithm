@@ -7,6 +7,10 @@
  *
  * 3. binary search tree
  *
+ * 4. IDE에서 제공하는 Arrays.sort는 nlogn으로 돌려지는 것 같음
+ *
+ *    버블(n^n) 으로 sorting 하면 백준에서 시간 초과 발생함
+ *
  */
 
 
@@ -26,7 +30,10 @@ public class BOJ_1920_수찾기 {
             A[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(A);
+//        Arrays.sort(A);
+
+        bubbleSort(A);
+
 
         int m = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine());
@@ -37,6 +44,18 @@ public class BOJ_1920_수찾기 {
             int result = binarySearch(A, x);
 
             System.out.println(result);
+        }
+    }
+
+    private static void bubbleSort(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j + 1];
+                    arr[j + 1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
         }
     }
 

@@ -52,6 +52,8 @@ public class BOJ_1167_트리의지름 {
                 list[startPoint].add(new Node(endPoint, distance));
             }
         }
+        
+        dfs();
 
 
 

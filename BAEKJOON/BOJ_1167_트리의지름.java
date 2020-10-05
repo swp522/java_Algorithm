@@ -3,9 +3,15 @@
 /*
  * 1. 트리의 지름을 구하는 프로그램
  *
- * 2. 2 ≤ V ≤ 100,000   ,
+ * 2. 2 ≤ V ≤ 100,000   ,  거리는 모두 10,000 이하의 자연수
  *
- * 3.
+ * 3. dfs
+ *
+ *    1). 1 번 node 에서 에서 가장 먼 노드(leaf) 찾기
+ *
+ *        (1번이 무조건 root 라는 보장은 없는 듯)
+ *
+ *    2). leaf 에서 가장 먼 노드 찾기
  *
  */
 
@@ -17,19 +23,18 @@ import java.util.StringTokenizer;
 
 public class BOJ_1167_트리의지름 {
 
-    static int v;
-
     static class Node {
-        int num;
-        int dist;
+        int index;
+        int weight;
 
-        public Node(int num, int dist) {
-            this.num = num;
-            this.dist = dist;
+        public Node(int index, int weight) {
+            this.index = index;
+            this.weight = weight;
         }
     }
 
     static ArrayList<Node> list[];
+    static int v, answer, leaf;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -52,14 +57,27 @@ public class BOJ_1167_트리의지름 {
                 list[startPoint].add(new Node(endPoint, distance));
             }
         }
-        
-        dfs();
 
+        dfs(1, 0, 0);
+        dfs(leaf, 0, 0);
 
-
+        System.out.println(answer);
     }
-    
-    public static void dfs(){
-        
+
+
+    public static void dfs(int currentNodeIndex, int parent, int weight) {
+        if (weight > answer) {
+            answer = weight;
+            leaf = currentNodeIndex;
+        }
+
+        for (int i = 0; i < list[currentNodeIndex].size(); i++) {
+            Node next = list[currentNodeIndex].get(i);
+
+            if (next.index != parent) {
+                dfs(next.index, currentNodeIndex, weight + next.weight);
+            }
+        }
+
     }
 }

@@ -6,4 +6,8 @@ public class BOJ_2208_보석줍기 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     }
+    
+    public static void solve(){
+        
+    }
 }

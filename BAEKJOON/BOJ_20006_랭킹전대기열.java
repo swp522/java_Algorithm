@@ -27,8 +27,7 @@ public class BOJ_20006_랭킹전대기열 {
         }
     }
 
-    static int p, m, l;
-    static String n;
+    static int p, m;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -43,8 +42,8 @@ public class BOJ_20006_랭킹전대기열 {
 
         for (int i = 0; i < p; i++) {
             st = new StringTokenizer(br.readLine());
-            l = Integer.parseInt(st.nextToken());
-            n = st.nextToken();
+            int l = Integer.parseInt(st.nextToken());
+            String n = st.nextToken();
 
             for (int j = 0; j < list.length; j++) {
                 if (list[j].size() != m) {
@@ -72,9 +71,9 @@ public class BOJ_20006_랭킹전대기열 {
 
             if (list[roomNum].size() != 0) {
                 if (list[roomNum].size() == m) {
-                    System.out.println("Started");
+                    System.out.println("Started!");
                 } else {
-                    System.out.println("Waiting");
+                    System.out.println("Waiting!");
                 }
 
                 for (int playerIndex = 0; playerIndex < list[roomNum].size(); playerIndex++) {
@@ -85,3 +84,4 @@ public class BOJ_20006_랭킹전대기열 {
         }
     }
 }
+

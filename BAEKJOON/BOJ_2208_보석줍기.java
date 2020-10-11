@@ -52,5 +52,9 @@ public class BOJ_2208_보석줍기 {
 
         System.out.println(answer);
     }
+    
+    public static void solve(){
+        
+    }
 
 }

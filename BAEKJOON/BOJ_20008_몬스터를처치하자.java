@@ -46,6 +46,9 @@ public class BOJ_20008_몬스터를처치하자 {
                     }
                 }
         );
+        
+        
+        dfs(0, hp);
 
 
 

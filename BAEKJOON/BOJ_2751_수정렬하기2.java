@@ -13,6 +13,8 @@
        - mergSort() 에서 temp 배열 생성하지 않도록함
 
        - System.out.println() 안쓰고 BufferedWriter 써야함
+       
+       - quickSort() 쓰면 시간 초과 발생함
 
  */
 
@@ -33,6 +35,8 @@ public class BOJ_2751_수정렬하기2 {
             inputArr[i] = Integer.parseInt(br.readLine());
         }
 
+//        quickSort(inputArr, 0, n - 1);
+        
         divide(inputArr, 0, inputArr.length - 1);
 
         print(inputArr);
@@ -82,6 +86,42 @@ public class BOJ_2751_수정렬하기2 {
             arr[i] = temp[i];
         }
     }
+    
+    
+    public static void quickSort(int[] arr, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+
+        int keyIndex = start;
+        int i = start + 1;
+        int j = end;
+        int temp;
+
+        while (i <= j) {
+            while ((i <= end) && (arr[i] <= arr[keyIndex])) {
+                i++;
+            }
+
+            while ((arr[j] >= arr[keyIndex]) && (j > start)) {
+                j--;
+            }
+
+            if (i > j) {
+                temp = arr[j];
+                arr[j] = arr[keyIndex];
+                arr[keyIndex] = temp;
+            } else {
+                temp = arr[j];
+                arr[j] = arr[i];
+                arr[i] = temp;
+            }
+        }
+
+        quickSort(arr, start, j - 1);
+        quickSort(arr, j + 1, end);
+    }
+    
 
     public static void print(int[] arr) throws IOException {
         for (Integer n : arr) {

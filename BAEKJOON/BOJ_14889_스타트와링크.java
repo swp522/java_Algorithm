@@ -50,11 +50,10 @@ public class BOJ_14889_스타트와링크 {
         }
 
         for (int i = index; i < n; i++) {
-            if (!visited[i]) {
-                visited[i] = true;
-                nCr(i + 1, count + 1);
-                visited[i] = false;
-            }
+            visited[i] = true;
+            nCr(i + 1, count + 1);
+            visited[i] = false;
+
         }
     }
 
@@ -78,4 +77,3 @@ public class BOJ_14889_스타트와링크 {
         return Math.abs(startTeam - linkTeam);
     }
 }
-

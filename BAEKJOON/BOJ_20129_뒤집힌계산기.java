@@ -16,4 +16,8 @@ public class BOJ_20129_뒤집힌계산기 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     }
+    
+    public static void solve(){
+        
+    }
 }

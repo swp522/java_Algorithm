@@ -17,7 +17,7 @@ public class BOJ_20129_뒤집힌계산기 {
 
     }
     
-    public static void solve(){
+    public static void solution(){
         
     }
 }

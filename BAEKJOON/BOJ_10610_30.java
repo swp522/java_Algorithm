@@ -12,7 +12,10 @@
 
        2) 10의 배수이려면 0이 하나라도 있으면 된다
 
+    4. 속도 개선해보기
+
  */
+
 
 import java.io.BufferedReader;
 import java.io.IOException;

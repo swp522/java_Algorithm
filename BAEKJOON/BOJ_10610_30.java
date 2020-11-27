@@ -12,10 +12,9 @@
 
        2) 10의 배수이려면 0이 하나라도 있으면 된다
 
-    4. 속도 개선해보기
+    4. 속도 개선 : char[], StringBuilder 로 속도 개선
 
  */
-
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,14 +26,14 @@ public class BOJ_10610_30 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String n = br.readLine();
 
-        int[] numbers = new int[n.length()];
+        char[] numbers = new char[n.length()];
         int sum = 0;
         boolean isZero = false;
 
         for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = Integer.parseInt(n.charAt(i) + "");
-            sum += numbers[i];
-            if (numbers[i] == 0) {
+            numbers[i] = n.charAt(i);
+            sum += (numbers[i] - '0');
+            if (numbers[i] == '0') {
                 isZero = true;
             }
         }
@@ -42,9 +41,10 @@ public class BOJ_10610_30 {
         Arrays.sort(numbers);
 
         if (isZero && sum % 3 == 0) {
-            for (int i = numbers.length - 1; i >= 0; i--) {
-                System.out.print(numbers[i]);
-            }
+            StringBuilder sb = new StringBuilder();
+            sb.append(numbers);
+            sb.reverse();
+            System.out.println(sb.toString());
         } else {
             System.out.print(-1);
         }

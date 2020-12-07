@@ -31,6 +31,7 @@ public class BOJ_7785_회사에있는사람 {
             }
         }
 
+        
 //        hs.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);
 
         String[] answer = hs.toArray(new String[hs.size()]);

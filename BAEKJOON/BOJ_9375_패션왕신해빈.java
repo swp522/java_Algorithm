@@ -38,6 +38,7 @@ public class BOJ_9375_패션왕신해빈 {
             }
 
             int answer = 1;
+            
             for (String key : hm.keySet()) {
                 answer *= (hm.get(key) + 1);
             }

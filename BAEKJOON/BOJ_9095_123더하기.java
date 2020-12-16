@@ -23,4 +23,8 @@ public class BOJ_9095_123더하기 {
         }
 
     }
+    
+    public static void solve(){
+        
+    }
 }

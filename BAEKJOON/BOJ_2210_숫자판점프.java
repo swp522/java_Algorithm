@@ -1,6 +1,9 @@
-// 2020_12_31_목
+// 2021_01_01_금
 // version 1.0
 
 
 public class BOJ_2210_숫자판점프 {
+    public static void main(String[] args){
+        
+    }
 }

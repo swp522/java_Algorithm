@@ -1,19 +1,7 @@
-// 2020_02_16_화
-
-/*
-
-    1. n개 포트와 다른 n개 포트가 안겹치고 연결되는 최대 개수
-
-    2. 1 ≤ n ≤ 40,000
-
-    3. Lis 로만 하면 시간 초과 나와서 binary search 개념 필요함
-
-       (참고 했음)
-
-    4. lower bound 구현만으로 풀 수도 있는 듯
-
- */
+// 2020_02_17_수
 
 public class BOJ_14425_문자열집합{
-    
+    public stati void main(String[] args){
+        
+    })
 }

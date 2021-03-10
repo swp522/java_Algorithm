@@ -1,4 +1,4 @@
-// 2020_03_09_화
+// 2020_03_10_수
 
 public class BOJ_12865_평범한배낭{
     public static void main(String[] args){

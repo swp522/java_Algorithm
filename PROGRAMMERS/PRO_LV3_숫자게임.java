@@ -1,4 +1,4 @@
-// 2020_10_21_수
+// 2021_04_12_월
 
 /*
 
@@ -38,6 +38,25 @@ public class PRO_LV3_숫자게임 {
                 index--;
             } else{
                 continue;
+            }
+        }
+
+        return answer;
+    }
+
+  public static int solution2(int[] A, int[] B) {
+        int answer = 0;
+        Arrays.sort(A);
+        Arrays.sort(B);
+
+        int b = 0;
+        for(int i = 0; i < A.length; i++){
+            for(int j = b; j < B.length; j++){
+                if(A[i] < B[j]){
+                    answer++;
+                    b = j + 1;
+                    break;
+                }
             }
         }
 

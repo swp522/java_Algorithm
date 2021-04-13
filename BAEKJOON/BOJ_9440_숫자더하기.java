@@ -1,4 +1,4 @@
-// 2020_04_11_일
+// 2020_04_13_화
 
 public class BOJ_9440_숫자더하기{
     public static void main(String[] args){

@@ -1,7 +1,8 @@
-// 2020_07_17_화
+// 2020_07_18_수
 
 public class BOJ_9440_숫자더하기{
     public static void main(String[] args){
         
     }
+    
 }

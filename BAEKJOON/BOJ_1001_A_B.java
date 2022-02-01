@@ -7,5 +7,6 @@ public class BOJ_1001_A_B {
         int b = sc.nextInt();
 
         System.out.println(a - b);
+        //test
     }
 }

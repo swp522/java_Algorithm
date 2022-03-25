@@ -5,6 +5,7 @@
 
 3. 너무 어렵게 생각했는데 대각선 꼭지점이 0, 0 인 사각형이었음
  - 주어진 3가지 조건을 i, j 고려하면서 그려보면 더 쉽게 구현할 수 있을 듯
+ - StringBuilder 로 append 시간 효율 더 높아지는 듯
  */
 
 import java.io.BufferedReader;
